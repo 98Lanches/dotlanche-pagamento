@@ -21,17 +21,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivers", "Drivers", "{5E97
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivens", "Drivens", "{182EF4B5-C954-4A5D-ADA9-7B78A618470F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotlanche.Pagamento.Domain", "src\Core\Dotlanche.Pagamento.Domain\Dotlanche.Pagamento.Domain.csproj", "{D456AD51-9B20-4D84-8BCC-3F45C96BCFAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.Domain", "src\Core\Dotlanche.Pagamento.Domain\Dotlanche.Pagamento.Domain.csproj", "{D456AD51-9B20-4D84-8BCC-3F45C96BCFAD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.Data", "src\Drivens\Dotlanche.Pagamento.Data\Dotlanche.Pagamento.Data.csproj", "{659865B8-619F-4929-9C7A-BC12BC1C5A8C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.WebApi", "src\Drivers\Dotlanche.Pagamento.WebApi\Dotlanche.Pagamento.WebApi.csproj", "{2A44FD7E-719F-4A86-9E30-3CA6EB8B0B15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotlanche.Pagamento.UnitTests", "test\UnitTests\Dotlanche.Pagamento.UnitTests\Dotlanche.Pagamento.UnitTests.csproj", "{F70ED0EC-499D-46AE-B2AE-326754782952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.UnitTests", "test\UnitTests\Dotlanche.Pagamento.UnitTests\Dotlanche.Pagamento.UnitTests.csproj", "{F70ED0EC-499D-46AE-B2AE-326754782952}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotlanche.Pagamento.MockProvider", "src\Drivens\Dotlanche.Pagamento.MockProvider\Dotlanche.Pagamento.MockProvider.csproj", "{345182E5-1A4E-48F1-81F7-A04EAAFE4276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.MockProvider", "src\Drivens\Dotlanche.Pagamento.MockProvider\Dotlanche.Pagamento.MockProvider.csproj", "{345182E5-1A4E-48F1-81F7-A04EAAFE4276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotlanche.Pagamento.Application", "src\Core\Dotlanche.Pagamento.Application\Dotlanche.Pagamento.Application.csproj", "{1A163EEF-0147-4FEA-9376-EA84D030F425}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.Application", "src\Core\Dotlanche.Pagamento.Application\Dotlanche.Pagamento.Application.csproj", "{1A163EEF-0147-4FEA-9376-EA84D030F425}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{17559CD9-A327-410F-8F74-9FD697C12A7B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yaml = .github\workflows\ci.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,6 +83,7 @@ Global
 		{F70ED0EC-499D-46AE-B2AE-326754782952} = {5FAACFB9-F9A1-4D25-8B3D-80233DBAB033}
 		{345182E5-1A4E-48F1-81F7-A04EAAFE4276} = {182EF4B5-C954-4A5D-ADA9-7B78A618470F}
 		{1A163EEF-0147-4FEA-9376-EA84D030F425} = {6FD83AB2-D113-4D74-A60B-9B07E676F8F4}
+		{17559CD9-A327-410F-8F74-9FD697C12A7B} = {9B56F62E-CD5D-4C33-B43B-5361E74A69FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6ECDB785-EB23-41CA-921B-B5776B7E7132}
