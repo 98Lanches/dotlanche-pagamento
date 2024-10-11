@@ -15,8 +15,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Dotlanche.Pagamento.Application\Dotlanche.Pagamento.Application.csproj" />
+    <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.Checkout\Dotlanche.Pagamento.Checkout.csproj" />
     <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.Data\Dotlanche.Pagamento.Data.csproj" />
-    <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.MockProvider\Dotlanche.Pagamento.MockProvider.csproj" />
   </ItemGroup>
 
   <ItemGroup>
