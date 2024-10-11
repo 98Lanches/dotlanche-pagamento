@@ -10,7 +10,7 @@ namespace Dotlanche.Pagamento.UnitTests.Drivens.Checkout.Adapters
         public void RequestQrCode_WhenCalled_ShouldReturnFakeValue()
         {
             // Arrange
-            var pagamento = new RegistroPagamento(35);
+            var pagamento = new RegistroPagamento(Guid.NewGuid(), 35);
             var fakeCheckoutProvider = new FakeCheckoutProvider();
 
             // Act

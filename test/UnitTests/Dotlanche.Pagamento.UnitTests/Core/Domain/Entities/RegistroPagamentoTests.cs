@@ -7,13 +7,33 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
     public class RegistroPagamentoTests
     {
         [Test]
+        public void New_WhenNoValidationErrorOccurs_ShouldCreateObjectWithCorrectValues()
+        {
+            // Arrange
+            var refPedido = Guid.NewGuid();
+            const decimal amount = 10;
+
+            // Act
+            var pagamento = new RegistroPagamento(refPedido, amount);
+
+            // Assert
+            pagamento.Id.Should().NotBeEmpty();
+            pagamento.Pedido.Should().Be(refPedido);
+            pagamento.Amount.Should().Be(amount);
+            pagamento.IsAccepted.Should().BeFalse();
+            pagamento.RegisteredAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
+            pagamento.AcceptedAt.Should().BeNull();
+        }
+
+        [Test]
         public void New_WhenAmountIsLowerThanZero_ShouldThrowDomainValidationException()
         {
             // Arrange
+            var refPedido = Guid.NewGuid();
             const decimal amount = -5;
 
             // Act
-            var newPagamentoCall = () => new RegistroPagamento(amount);
+            var newPagamentoCall = () => new RegistroPagamento(refPedido, amount);
 
             // Assert
             newPagamentoCall
@@ -23,27 +43,27 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
         }
 
         [Test]
-        public void New_WhenNoValidationErrorOccurs_ShouldCreateObjectWithCorrectValues()
+        public void New_WhenPedidoRefIsEmpty_ShouldThrowDomainValidationException()
         {
             // Arrange
-            const decimal amount = 10;
+            var refPedido = Guid.Empty;
+            const decimal amount = 6;
 
             // Act
-            var pagamento = new RegistroPagamento(amount);
+            var newPagamentoCall = () => new RegistroPagamento(refPedido, amount);
 
             // Assert
-            pagamento.Id.Should().NotBeEmpty();
-            pagamento.Amount.Should().Be(amount);
-            pagamento.IsAccepted.Should().BeFalse();
-            pagamento.RegisteredAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
-            pagamento.AcceptedAt.Should().BeNull();
+            newPagamentoCall
+                .Should()
+                .Throw<DomainValidationException>()
+                .WithMessage("invalid value for PedidoRef!");
         }
 
         [Test]
         public void ConfirmPayment_WhenCalled_ShouldSetIsAcceptedToTrueAndAssignAcceptedAtValue()
         {
             // Arrange
-            var pagamento = new RegistroPagamento(amount: 50);
+            var pagamento = new RegistroPagamento(Guid.NewGuid(), 50);
 
             // Act
             pagamento.ConfirmPayment();
