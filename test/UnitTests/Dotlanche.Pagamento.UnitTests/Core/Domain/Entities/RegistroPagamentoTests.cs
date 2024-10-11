@@ -1,5 +1,6 @@
 ﻿using Dotlanche.Pagamento.Domain.Entities;
 using Dotlanche.Pagamento.Domain.Exceptions;
+using Dotlanche.Pagamento.Domain.ValueObjects;
 using FluentAssertions;
 
 namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
@@ -14,11 +15,12 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
             const decimal amount = 10;
 
             // Act
-            var pagamento = new RegistroPagamento(refPedido, amount);
+            var pagamento = new RegistroPagamento(refPedido, amount, TipoPagamento.QrCode);
 
             // Assert
             pagamento.Id.Should().NotBeEmpty();
             pagamento.Pedido.Should().Be(refPedido);
+            pagamento.Tipo.Should().Be(TipoPagamento.QrCode);
             pagamento.Amount.Should().Be(amount);
             pagamento.IsAccepted.Should().BeFalse();
             pagamento.RegisteredAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
@@ -33,7 +35,7 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
             const decimal amount = -5;
 
             // Act
-            var newPagamentoCall = () => new RegistroPagamento(refPedido, amount);
+            var newPagamentoCall = () => new RegistroPagamento(refPedido, amount, TipoPagamento.QrCode);
 
             // Assert
             newPagamentoCall
@@ -50,20 +52,20 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
             const decimal amount = 6;
 
             // Act
-            var newPagamentoCall = () => new RegistroPagamento(refPedido, amount);
+            var newPagamentoCall = () => new RegistroPagamento(refPedido, amount, TipoPagamento.QrCode);
 
             // Assert
             newPagamentoCall
                 .Should()
                 .Throw<DomainValidationException>()
-                .WithMessage("invalid value for PedidoRef!");
+                .WithMessage("invalid value for Pedido!");
         }
 
         [Test]
         public void ConfirmPayment_WhenCalled_ShouldSetIsAcceptedToTrueAndAssignAcceptedAtValue()
         {
             // Arrange
-            var pagamento = new RegistroPagamento(Guid.NewGuid(), 50);
+            var pagamento = new RegistroPagamento(Guid.NewGuid(), 50, TipoPagamento.QrCode);
 
             // Act
             pagamento.ConfirmPayment();

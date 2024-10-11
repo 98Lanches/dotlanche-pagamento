@@ -3,7 +3,7 @@ using Dotlanche.Pagamento.Domain.Entities;
 
 namespace Dotlanche.Pagamento.Checkout.Adapters
 {
-    public class FakeCheckoutProvider : ICheckoutProvider
+    public class FakeCheckoutQrCodeProvider : IQrCodeProvider
     {
         public string RequestQrCode(RegistroPagamento pagamento)
         {

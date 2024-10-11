@@ -2,7 +2,7 @@
 
 namespace Dotlanche.Pagamento.Application.Ports
 {
-    public interface ICheckoutProvider
+    public interface IQrCodeProvider
     {
         string RequestQrCode(RegistroPagamento pagamento);
     }

@@ -1,4 +1,4 @@
-using Dotlanche.Pagamento.Checkout.Extensions;
+using Dotlanche.Pagamento.Checkout.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
