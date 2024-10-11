@@ -19,4 +19,8 @@
     <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.MockProvider\Dotlanche.Pagamento.MockProvider.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
