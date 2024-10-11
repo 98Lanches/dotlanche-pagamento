@@ -10,4 +10,8 @@
     <Folder Include="Adapters\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Dotlanche.Pagamento.Application\Dotlanche.Pagamento.Application.csproj" />
+  </ItemGroup>
+
 </Project>

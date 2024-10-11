@@ -11,4 +11,8 @@
     <Folder Include="Ports\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dotlanche.Pagamento.Domain\Dotlanche.Pagamento.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
