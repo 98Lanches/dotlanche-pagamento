@@ -3,7 +3,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build_test:
     name: "Build and Test"
     runs-on: ubuntu-latest
     steps:
@@ -19,7 +19,28 @@ jobs:
     - id: build
       name: Build
       run: dotnet build --no-restore
-    - id: test
-      working-directory: ./test
-      name: Run Tests
-      run: dotnet test --no-build --verbosity normal
+
+    - id: unit_test
+      name: Run Unit Tests
+      working-directory: ./test/UnitTests/Dotlanche.Pagamento.UnitTests
+      run: dotnet test
+  
+  validate-docker:
+    name: "Validate Dockerfile"
+    needs: build_test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Dockerfile
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./src/Drivers/Dotlanche.Pagamento.WebApi/Dockerfile
+        push: false
