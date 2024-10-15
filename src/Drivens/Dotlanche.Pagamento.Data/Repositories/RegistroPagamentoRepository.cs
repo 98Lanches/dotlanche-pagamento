@@ -18,5 +18,10 @@ namespace Dotlanche.Pagamento.Data.Repositories
             await dbContext.Pagamentos.AddAsync(registroPagamento);
             return registroPagamento;
         }
+
+        public IEnumerable<RegistroPagamento> FindByIdPedido(Guid idPedido)
+        {
+            return dbContext.Pagamentos.Where(x => x.IdPedido == idPedido);
+        }
     }
 }

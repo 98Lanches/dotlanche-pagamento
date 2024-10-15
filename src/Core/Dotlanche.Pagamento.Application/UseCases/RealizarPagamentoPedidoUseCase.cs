@@ -29,6 +29,12 @@ namespace Dotlanche.Pagamento.Application.UseCases
 
             try
             {
+                var pagamentosForPedido = repository.FindByIdPedido(registroPagamento.IdPedido);
+                if (pagamentosForPedido.Any(x => x.IsAccepted))
+                {
+                    return ProviderPagamentoResult.CreateFailedResult(registroPagamento, "Pedido is already paid!");
+                }
+
                 var result = useCaseForTipoPagamento.Execute(registroPagamento);
                 await repository.AddAsync(registroPagamento);
 
@@ -37,10 +43,7 @@ namespace Dotlanche.Pagamento.Application.UseCases
             catch (Exception e)
             {
                 logger.LogError(e, "error processing payment");
-                return new ProviderPagamentoResult(false, registroPagamento, new Dictionary<string, object>()
-                {
-                    { "Message", e.Message }
-                });
+                return ProviderPagamentoResult.CreateFailedResult(registroPagamento, e.Message);
             }
         }
     }

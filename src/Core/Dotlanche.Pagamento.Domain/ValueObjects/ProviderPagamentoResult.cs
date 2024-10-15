@@ -16,5 +16,13 @@ namespace Dotlanche.Pagamento.Domain.ValueObjects
         public RegistroPagamento RegistroPagamento { get; }
 
         public Dictionary<string, object> ProviderData { get; }
+
+        public static ProviderPagamentoResult CreateFailedResult(RegistroPagamento registroPagamento, string message)
+        {
+            return new(false, registroPagamento, new Dictionary<string, object>()
+            {
+                { "Message", message },
+            });
+        }
     }
 }

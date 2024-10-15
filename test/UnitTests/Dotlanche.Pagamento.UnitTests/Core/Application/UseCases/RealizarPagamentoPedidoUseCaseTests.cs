@@ -104,5 +104,39 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
             result.RegistroPagamento.Should().Be(payment);
             result.ProviderData.Should().Contain(new KeyValuePair<string, object>("Message", "An error occurred"));
         }
+
+        [Test]
+        public async Task Execute_WhenPedidoIsAlreadyPaid_ShouldReturnFailedResult()
+        {
+            // Arrange
+            var payment = new RegistroPagamento(Guid.NewGuid(), 35, TipoPagamento.QrCode);
+
+            var factoryMock = new Mock<ITipoPagamentoUseCaseFactory>();
+            var repositoryMock = new Mock<IRegistroPagamentoRepository>();
+
+            var existingPagamento = new RegistroPagamento(payment.IdPedido, 45, TipoPagamento.QrCode);
+            existingPagamento.ConfirmPayment();
+            repositoryMock
+                .Setup(x => x.FindByIdPedido(payment.IdPedido))
+                .Returns([existingPagamento]);
+
+            var tipoPagamentoUseCaseMock = new Mock<ITipoPagamentoUseCase>();
+
+            var tipoPagamentoMock = factoryMock
+                .Setup(x => x.GetUseCaseForTipoPagamento(TipoPagamento.QrCode))
+                .Returns(tipoPagamentoUseCaseMock.Object);
+
+            var useCase = new RealizarPagamentoPedidoUseCase(repositoryMock.Object,
+                                                             factoryMock.Object,
+                                                             new Mock<ILogger<RealizarPagamentoPedidoUseCase>>().Object);
+
+            // Act
+            var result = await useCase.Execute(payment);
+
+            // Assert
+            result.IsSuccess.Should().BeFalse();
+            result.RegistroPagamento.Should().Be(payment);
+            result.ProviderData.Should().Contain(new KeyValuePair<string, object>("Message", "Pedido is already paid!"));
+        }
     }
 }
