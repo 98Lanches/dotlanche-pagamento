@@ -23,8 +23,7 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
         /// <returns>Resposta com informações sobre o pagamento realizado, dependendo do tipo</returns>
         [HttpPost]
         [ProducesResponseType(typeof(RegisterPagamentoForPedidoResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(RegisterPagamentoForPedidoResponse), StatusCodes.Status502BadGateway)]
         public async Task<IActionResult> RegisterPagamentoForPedido([FromBody] RegisterPagamentoForPedidoRequest request)
         {
             var pagamento = request.ToDomainModel();
@@ -32,13 +31,13 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
             var result = await realizarPagamentoPedidoUseCase.Execute(pagamento);
             if (result.IsSuccess == false)
             {
-                return new ObjectResult(result)
+                return new ObjectResult(result.ToResponse())
                 {
                     StatusCode = StatusCodes.Status502BadGateway,
                 };
             }
 
-            return Ok(result);
+            return Ok(result.ToResponse());
         }
     }
 }

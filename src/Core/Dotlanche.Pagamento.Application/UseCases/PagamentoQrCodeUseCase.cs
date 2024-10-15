@@ -21,7 +21,7 @@ namespace Dotlanche.Pagamento.Application.UseCases
                 {"QR_CODE_IMG", qrCode},
             };
 
-            return new ProviderPagamentoResult(isSuccess: true, providerData: providerData);
+            return new ProviderPagamentoResult(isSuccess: true, pagamento, providerData: providerData);
         }
     }
 }

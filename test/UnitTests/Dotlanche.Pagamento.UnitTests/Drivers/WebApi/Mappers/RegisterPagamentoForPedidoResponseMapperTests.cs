@@ -1,4 +1,6 @@
-﻿using Dotlanche.Pagamento.Domain.ValueObjects;
+﻿using AutoBogus;
+using Dotlanche.Pagamento.Domain.Entities;
+using Dotlanche.Pagamento.Domain.ValueObjects;
 using Dotlanche.Pagamento.WebApi.Mappers;
 using FluentAssertions;
 
@@ -14,13 +16,19 @@ namespace Dotlanche.Pagamento.UnitTests.Drivers.WebApi.Mappers
             {
                 { "TEST", "123" }
             };
-            var result = new ProviderPagamentoResult(true, providerData);
+            var pagamento = new AutoFaker<RegistroPagamento>().Generate();
+            var result = new ProviderPagamentoResult(true, pagamento, providerData);
 
             // Act
             var response = result.ToResponse();
 
             // Assert
-            response.Result.Should().BeEquivalentTo(providerData);
+            response.OperationSuccessful.Should().Be(result.IsSuccess);
+            response.RegistroPagamentoId.Should().Be(result.RegistroPagamento.Id);
+            response.PedidoId.Should().Be(result.RegistroPagamento.IdPedido);
+            response.RegisteredTime.Should().Be(result.RegistroPagamento.RegisteredAt);
+            response.IsAccepted.Should().Be(result.RegistroPagamento.IsAccepted);
+            response.ProviderData.Should().BeEquivalentTo(providerData);
         }
     }
 }

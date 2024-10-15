@@ -10,7 +10,12 @@ namespace Dotlanche.Pagamento.WebApi.Mappers
 
             var response = new RegisterPagamentoForPedidoResponse()
             {
-                Result = result.ProviderData,
+                OperationSuccessful = result.IsSuccess,
+                PedidoId = result.RegistroPagamento.IdPedido,
+                RegistroPagamentoId = result.RegistroPagamento.Id,
+                IsAccepted = result.RegistroPagamento.IsAccepted,
+                RegisteredTime = result.RegistroPagamento.RegisteredAt,
+                ProviderData = result.ProviderData,
             };
 
             return response;
