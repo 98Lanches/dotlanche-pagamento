@@ -23,7 +23,7 @@ namespace Dotlanche.Pagamento.Application.UseCases
             var useCaseForTipoPagamento =  useCaseFactory.GetUseCaseForTipoPagamento(registroPagamento.Tipo);
 
             var result = useCaseForTipoPagamento.Execute(registroPagamento);
-            repository.Add(registroPagamento);
+            repository.AddAsync(registroPagamento);
 
             return result;
         }

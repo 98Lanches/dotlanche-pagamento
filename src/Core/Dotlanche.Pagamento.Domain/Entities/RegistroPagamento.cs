@@ -7,7 +7,7 @@ namespace Dotlanche.Pagamento.Domain.Entities
     {
         public Guid Id { get; private set; }
 
-        public Guid Pedido { get; private set; }
+        public Guid IdPedido { get; private set; }
 
         public TipoPagamento Tipo { get; private set; }
 
@@ -19,11 +19,13 @@ namespace Dotlanche.Pagamento.Domain.Entities
 
         public DateTime? AcceptedAt { get; private set; }
 
+        private RegistroPagamento() { }
+
         public RegistroPagamento(Guid pedido, decimal amount, TipoPagamento tipoPagamento)
         {
             Id = Guid.NewGuid();
 
-            Pedido = pedido;
+            IdPedido = pedido;
             Amount = amount;
             Tipo = tipoPagamento;
             RegisteredAt = DateTime.Now;
@@ -39,8 +41,8 @@ namespace Dotlanche.Pagamento.Domain.Entities
 
         private void ValidateEntity()
         {
-            if (Pedido == Guid.Empty)
-                throw new DomainValidationException(nameof(Pedido));
+            if (IdPedido == Guid.Empty)
+                throw new DomainValidationException(nameof(IdPedido));
 
             if (Amount < 0)
                 throw new DomainValidationException(nameof(Amount));

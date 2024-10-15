@@ -29,7 +29,7 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
 
             // Assert
             tipoPagamentoUseCaseMock.Verify(x => x.Execute(payment), Times.Once());
-            repositoryMock.Verify(x => x.Add(payment), Times.Once());
+            repositoryMock.Verify(x => x.AddAsync(payment), Times.Once());
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Dotlanche.Pagamento.Domain.Repositories
 {
     public interface IRegistroPagamentoRepository
     {
-        public RegistroPagamento Add(RegistroPagamento registroPagamento);
+        public Task<RegistroPagamento> AddAsync(RegistroPagamento registroPagamento);
     }
 }

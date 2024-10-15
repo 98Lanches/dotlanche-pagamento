@@ -19,7 +19,7 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
 
             // Assert
             pagamento.Id.Should().NotBeEmpty();
-            pagamento.Pedido.Should().Be(refPedido);
+            pagamento.IdPedido.Should().Be(refPedido);
             pagamento.Tipo.Should().Be(TipoPagamento.QrCode);
             pagamento.Amount.Should().Be(amount);
             pagamento.IsAccepted.Should().BeFalse();
@@ -58,7 +58,7 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Domain.Entities
             newPagamentoCall
                 .Should()
                 .Throw<DomainValidationException>()
-                .WithMessage("invalid value for Pedido!");
+                .WithMessage("invalid value for IdPedido!");
         }
 
         [Test]
