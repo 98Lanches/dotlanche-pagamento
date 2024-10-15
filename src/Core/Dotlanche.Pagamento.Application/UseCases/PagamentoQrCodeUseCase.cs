@@ -18,7 +18,7 @@ namespace Dotlanche.Pagamento.Application.UseCases
             var qrCode = checkoutProvider.RequestQrCode(pagamento);
             var providerData = new Dictionary<string, object>()
             {
-                {"QR_CODE", qrCode},
+                {"QR_CODE_IMG", qrCode},
             };
 
             return new ProviderPagamentoResult(isSuccess: true, providerData: providerData);
