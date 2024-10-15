@@ -5,6 +5,6 @@ namespace Dotlanche.Pagamento.Application.UseCases.Interfaces
 {
     public interface IRealizarPagamentoPedidoUseCase
     {
-        ProviderPagamentoResult Execute(RegistroPagamento registroPagamento);
+        Task<ProviderPagamentoResult> Execute(RegistroPagamento registroPagamento);
     }
 }
