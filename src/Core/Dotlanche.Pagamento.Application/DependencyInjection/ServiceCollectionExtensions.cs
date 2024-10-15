@@ -1,4 +1,5 @@
-﻿using Dotlanche.Pagamento.Application.UseCases;
+﻿using Dotlanche.Pagamento.Application.Factories;
+using Dotlanche.Pagamento.Application.UseCases;
 using Dotlanche.Pagamento.Application.UseCases.Interfaces;
 using Dotlanche.Pagamento.Domain.ValueObjects;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ namespace Dotlanche.Pagamento.Application.DependencyInjection
     {
         public static IServiceCollection AddPagamentoUseCases(this IServiceCollection services)
         {
+            services.AddScoped<ITipoPagamentoUseCaseFactory, TipoPagamentoUseCaseFactory>();
             services.AddKeyedScoped<ITipoPagamentoUseCase, PagamentoQrCodeUseCase>(TipoPagamento.QrCode);
             services.AddScoped<IRealizarPagamentoPedidoUseCase, RealizarPagamentoPedidoUseCase>();
 
