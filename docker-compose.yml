@@ -1,8 +1,8 @@
 services:
   database:
-    image: postgres:16.3-alpine3.18
+    image: postgres:17.0-alpine3.20
     environment:
-      POSTGRES_USER: postgresql
+      POSTGRES_USER: pagamentoApiUser
       POSTGRES_PASSWORD: P4a55w0rd
       POSTGRES_DB: dotlanche-pagamento
     ports:
@@ -20,7 +20,7 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=dotlanche-pagamento;Username=postgresql;Password=P4a55w0rd
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=dotlanche-pagamento;Username=pagamentoApiUser;Password=P4a55w0rd
 
 volumes:
   dotLanchesDb:
