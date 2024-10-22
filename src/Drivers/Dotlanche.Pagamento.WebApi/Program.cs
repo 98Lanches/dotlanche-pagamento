@@ -7,7 +7,10 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddFakeCheckoutProvider();
+
 builder.Services.AddPostgresqlDatabase(builder.Configuration);
+builder.Services.RunDatabaseMigrations(builder.Configuration);
+
 builder.Services.AddPagamentoUseCases();
 
 builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
