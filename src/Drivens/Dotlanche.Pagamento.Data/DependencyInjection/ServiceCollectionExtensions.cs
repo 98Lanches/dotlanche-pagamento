@@ -14,6 +14,8 @@ namespace Dotlanche.Pagamento.Data.DependencyInjection
             services.AddDbContextPool<PagamentoDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IRegistroPagamentoRepository, RegistroPagamentoRepository>();
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             return services;
         }
 

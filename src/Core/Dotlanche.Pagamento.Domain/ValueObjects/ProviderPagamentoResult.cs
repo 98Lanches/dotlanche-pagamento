@@ -2,20 +2,17 @@
 
 namespace Dotlanche.Pagamento.Domain.ValueObjects
 {
-    public class ProviderPagamentoResult
+    public class ProviderPagamentoResult : Result<Dictionary<string, object>>
     {
         public ProviderPagamentoResult(bool isSuccess, RegistroPagamento registroPagamento, Dictionary<string, object> providerData)
+            : base(isSuccess, providerData)
         {
-            IsSuccess = isSuccess;
             RegistroPagamento = registroPagamento;
-            ProviderData = providerData;
         }
-
-        public bool IsSuccess { get; }
 
         public RegistroPagamento RegistroPagamento { get; }
 
-        public Dictionary<string, object> ProviderData { get; }
+        public Dictionary<string, object> ProviderData => base.Value;
 
         public static ProviderPagamentoResult CreateFailedResult(RegistroPagamento registroPagamento, string message)
         {
