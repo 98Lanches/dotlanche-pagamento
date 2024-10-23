@@ -16,6 +16,7 @@ namespace Dotlanche.Pagamento.Application.DependencyInjection
             services.AddKeyedScoped<ITipoPagamentoUseCase, PagamentoQrCodeUseCase>(TipoPagamento.QrCode);
             services.AddScoped<IRealizarPagamentoPedidoUseCase, RealizarPagamentoPedidoUseCase>();
             services.AddScoped<IConfirmQrCodePagamentoUseCase, ConfirmQrCodePagamentoUseCase>();
+            services.AddScoped<IGetStatusPagamentoForPedidoUseCase, GetStatusPagamentoForPedidoUseCase>();
 
             return services;
         }
