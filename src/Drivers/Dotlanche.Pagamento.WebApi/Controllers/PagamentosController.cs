@@ -10,10 +10,14 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
     public class PagamentosController : ControllerBase
     {
         private readonly IRealizarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase;
+        private readonly IGetStatusPagamentoForPedidoUseCase getStatusPagamentoForPedidoUseCase;
 
-        public PagamentosController(IRealizarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase)
+        public PagamentosController(
+            IRealizarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase,
+            IGetStatusPagamentoForPedidoUseCase getStatusPagamentoForPedidoUseCase)
         {
             this.realizarPagamentoPedidoUseCase = realizarPagamentoPedidoUseCase;
+            this.getStatusPagamentoForPedidoUseCase = getStatusPagamentoForPedidoUseCase;
         }
 
         /// <summary>
@@ -38,6 +42,28 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
             }
 
             return Ok(result.ToResponse());
+        }
+
+        /// <summary>
+        /// Obtém o status de um pagamento para um pedido
+        /// </summary>
+        /// <param name="pagamento">id pedido</param>
+        /// <returns>Status do pedido, se foi pago ou não</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(GetStatusPagamentoForPedidoResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetStatusPagamentoForPedido([FromQuery] Guid idPedido)
+        {
+            var result = getStatusPagamentoForPedidoUseCase.Execute(idPedido);
+            if (!result.IsSuccess)
+                return NotFound();
+
+            var response = new GetStatusPagamentoForPedidoResponse()
+            {
+                IsAccepted = result.Value!.IsAccepted,
+                AcceptedAt = result.Value!.AcceptedAt
+            };
+            return Ok(response);
         }
     }
 }

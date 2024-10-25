@@ -20,8 +20,8 @@ namespace Dotlanche.Pagamento.Data.Migrations
                     Tipo = table.Column<int>(type: "integer", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     IsAccepted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    RegisteredAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    AcceptedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    RegisteredAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AcceptedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
