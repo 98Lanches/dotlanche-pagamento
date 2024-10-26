@@ -24,6 +24,11 @@ jobs:
       name: Run Unit Tests
       working-directory: ./test/UnitTests/Dotlanche.Pagamento.UnitTests
       run: dotnet test
+
+    - id: bdd_test
+      name: Run BDD Tests
+      working-directory: ./test/BDD/Dotlanche.Pagamento.BDDTests
+      run: dotnet test
   
   validate-docker:
     name: "Validate Dockerfile"
