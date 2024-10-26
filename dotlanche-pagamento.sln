@@ -39,6 +39,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{1755
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotlanche.Pagamento.Checkout", "src\Drivens\Dotlanche.Pagamento.Checkout\Dotlanche.Pagamento.Checkout.csproj", "{771F2DBD-8038-4BED-A0A7-CA8B00586DE8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BDD", "BDD", "{AB7EFD19-7116-4DAB-9219-954895C200D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotlanche.Pagamento.BDDTests", "test\BDD\Dotlanche.Pagamento.BDDTests\Dotlanche.Pagamento.BDDTests.csproj", "{F5F01254-97DB-4CAC-AF90-F82DEE5309D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{771F2DBD-8038-4BED-A0A7-CA8B00586DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{771F2DBD-8038-4BED-A0A7-CA8B00586DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{771F2DBD-8038-4BED-A0A7-CA8B00586DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F01254-97DB-4CAC-AF90-F82DEE5309D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F01254-97DB-4CAC-AF90-F82DEE5309D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5F01254-97DB-4CAC-AF90-F82DEE5309D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5F01254-97DB-4CAC-AF90-F82DEE5309D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,8 @@ Global
 		{1A163EEF-0147-4FEA-9376-EA84D030F425} = {6FD83AB2-D113-4D74-A60B-9B07E676F8F4}
 		{17559CD9-A327-410F-8F74-9FD697C12A7B} = {9B56F62E-CD5D-4C33-B43B-5361E74A69FA}
 		{771F2DBD-8038-4BED-A0A7-CA8B00586DE8} = {182EF4B5-C954-4A5D-ADA9-7B78A618470F}
+		{AB7EFD19-7116-4DAB-9219-954895C200D6} = {55FBC674-0B59-4681-A3FB-96A1B0D8A91D}
+		{F5F01254-97DB-4CAC-AF90-F82DEE5309D7} = {AB7EFD19-7116-4DAB-9219-954895C200D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6ECDB785-EB23-41CA-921B-B5776B7E7132}

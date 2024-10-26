@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.Data\Dotlanche.Pagamento.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Dotlanche.Pagamento.BDDTests" />
+  </ItemGroup>
+
 </Project>

@@ -4,6 +4,7 @@ using Dotlanche.Pagamento.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Dotlanche.Pagamento.Data.DependencyInjection
 {
@@ -23,10 +24,27 @@ namespace Dotlanche.Pagamento.Data.DependencyInjection
         {
             using (var sp = services.BuildServiceProvider())
             {
+                using var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+                var logger = loggerFactory.CreateLogger("Pagamento.Data.DependencyInjection");
+
                 using var scope = sp.CreateScope();
 
                 var db = scope.ServiceProvider.GetRequiredService<PagamentoDbContext>();
-                db.Database.Migrate();
+
+                _ = bool.TryParse(configuration.GetSection("RunMigrationsOnStartup").Value,
+                    out var shouldRunMigrationsOnStartup);
+
+                if (shouldRunMigrationsOnStartup)
+                {
+                    try
+                    {
+                        db.Database.Migrate();
+                    }
+                    catch (Exception e)
+                    {
+                        logger.LogWarning(e, "Could not run Migrations on startup");
+                    }
+                }
             }
 
             return services;
