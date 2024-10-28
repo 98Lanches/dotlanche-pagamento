@@ -3,31 +3,61 @@ on:
   pull_request:
 
 jobs:
-  build_test:
-    name: "Build and Test"
-    runs-on: ubuntu-latest
+  build-sonar:
+    name: Sonar Cloud Analysis
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: 'zulu' # Alternative distribution options are available.
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-    - id: build
-      name: Build
-      run: dotnet build --no-restore
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-    - id: unit_test
-      name: Run Unit Tests
-      working-directory: ./test/UnitTests/Dotlanche.Pagamento.UnitTests
-      run: dotnet test
-  
+      - name: Cache SonarCloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v4
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+
+      - name: Install SonarCloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+
+      - name: Install dotnet coverage tool
+        shell: powershell
+        run: |
+          dotnet tool install --global dotnet-coverage
+
+      - name: Build, Test and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"98Lanches_dotlanche-pagamento" /o:"98lanches" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml          
+          dotnet build
+          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml" # Run and collect all tests coverage
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
   validate-docker:
     name: "Validate Dockerfile"
-    needs: build_test
+    needs: build-sonar
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -44,3 +74,4 @@ jobs:
         context: .
         file: ./src/Drivers/Dotlanche.Pagamento.WebApi/Dockerfile
         push: false
+
