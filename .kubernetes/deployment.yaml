@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: c-dotlanche-pagamento
-          image: dotlanche-pagamento-api:v0.0.1
+          image: #{APP_IMAGE}#
           ports:
             - containerPort: 8080
           resources:
