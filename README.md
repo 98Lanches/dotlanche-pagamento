@@ -19,6 +19,16 @@ Provedores de pagamento disponíveis:
 - NUnit
 - Moq
 - Reqnroll
+- Docker
+- Docker Compose
+- Kubernetes
+- GitHub Actions
+
+# Arquitetura do Sistema
+O serviço foi construído utilizando arquitetura hexagonal para organização interna. O banco de dados selecionado foi o Postgresql pela proximidade do time com esta ferramenta.
+
+# Arquitetura Solução
+![arquiretura_solucao](docs/arquitetura.jpg)
 
 # Como executar o projeto
 
@@ -30,3 +40,11 @@ Provedores de pagamento disponíveis:
 docker compose up
 ```
 2. Acesse o navegador o endereço http://localhost:8080/swagger/index.html
+
+# Testes
+Tanto os testes de unidade quanto os testes de BDD encontram-se no diretório `test`.
+
+Para executar os testes da aplicação, basta rodar o comando abaixo na raiz do projeto:
+```
+dotnet test
+```
