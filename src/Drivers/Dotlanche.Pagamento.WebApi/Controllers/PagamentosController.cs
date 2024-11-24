@@ -60,6 +60,8 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
 
             var response = new GetStatusPagamentoForPedidoResponse()
             {
+                RegistroPagamentoId = result.Value!.Id,
+                PedidoId = result.Value!.IdPedido,
                 IsAccepted = result.Value!.IsAccepted,
                 AcceptedAt = result.Value!.AcceptedAt
             };
