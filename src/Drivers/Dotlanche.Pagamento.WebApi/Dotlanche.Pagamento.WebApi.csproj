@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\Core\Dotlanche.Pagamento.Application\Dotlanche.Pagamento.Application.csproj" />
     <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.Checkout\Dotlanche.Pagamento.Checkout.csproj" />
     <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.Data\Dotlanche.Pagamento.Data.csproj" />
+    <ProjectReference Include="..\..\Drivens\Dotlanche.Pagamento.Integrations\Dotlanche.Pagamento.Integrations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

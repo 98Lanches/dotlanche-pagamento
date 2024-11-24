@@ -2,7 +2,7 @@
 
 namespace Dotlanche.Pagamento.WebApi.DTOs
 {
-    public record RegisterPagamentoForPedidoRequest
+    public record RequestPagamentoForPedido
     {
         public Guid IdPedido { get; set; }
 

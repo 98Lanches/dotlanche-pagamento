@@ -18,8 +18,8 @@ namespace Dotlanche.Pagamento.BDDTests.StepDefinitions
 
         private readonly JsonSerializerOptions jsonOptions = new() { PropertyNameCaseInsensitive = true };
 
-        private RegisterPagamentoForPedidoRequest request = new();
-        private RegisterPagamentoForPedidoResponse? response;
+        private RequestPagamentoForPedido request = new();
+        private RequestPagamentoForPedidoResponse? response;
 
         public PagamentoQrCodeStepDefinitions(PagamentoApi pagamentoApi)
         {
@@ -63,7 +63,7 @@ namespace Dotlanche.Pagamento.BDDTests.StepDefinitions
             var registerPagamentoHttpResponse = await pagamentoApiClient.PostAsJsonAsync(endpoint, request);
 
             var responseJson = await registerPagamentoHttpResponse.Content.ReadAsStringAsync();
-            response = JsonSerializer.Deserialize<RegisterPagamentoForPedidoResponse>(responseJson, jsonOptions);
+            response = JsonSerializer.Deserialize<RequestPagamentoForPedidoResponse>(responseJson, jsonOptions);
         }
 
         [Then(@"deve retornar um QR Code para pagamento do pedido")]

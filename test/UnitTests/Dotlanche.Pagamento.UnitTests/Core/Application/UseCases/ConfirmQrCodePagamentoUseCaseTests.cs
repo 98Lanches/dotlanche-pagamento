@@ -1,4 +1,5 @@
-﻿using Dotlanche.Pagamento.Application.UseCases;
+﻿using Dotlanche.Pagamento.Application.Ports;
+using Dotlanche.Pagamento.Application.UseCases;
 using Dotlanche.Pagamento.Domain.Entities;
 using Dotlanche.Pagamento.Domain.Repositories;
 using Dotlanche.Pagamento.Domain.ValueObjects;
@@ -15,12 +16,14 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
             // Arrange
             var paymentId = Guid.NewGuid();
 
-            var repositoryMock = new Mock<IRegistroPagamentoRepository>();
-            repositoryMock
+            var registroPagamentoRepositoryMock = new Mock<IRegistroPagamentoRepository>();
+            registroPagamentoRepositoryMock
                 .Setup(x => x.FindByIdAsync(paymentId))
                 .ReturnsAsync(new RegistroPagamento(paymentId, 10, TipoPagamento.QrCode));
 
-            var useCase = new ConfirmQrCodePagamentoUseCase(repositoryMock.Object);
+            var pedidosServiceClientMock = new Mock<IPedidosServiceClient>();
+
+            var useCase = new ConfirmQrCodePagamentoUseCase(registroPagamentoRepositoryMock.Object, pedidosServiceClientMock.Object);
 
             // Act
             var result = await useCase.Execute(paymentId);
@@ -37,7 +40,9 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
 
             var repositoryMock = new Mock<IRegistroPagamentoRepository>();
 
-            var useCase = new ConfirmQrCodePagamentoUseCase(repositoryMock.Object);
+            var pedidosServiceClientMock = new Mock<IPedidosServiceClient>();
+
+            var useCase = new ConfirmQrCodePagamentoUseCase(repositoryMock.Object, pedidosServiceClientMock.Object);
 
             // Act
             var result = await useCase.Execute(paymentId);

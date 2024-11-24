@@ -7,16 +7,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Dotlanche.Pagamento.Application.UseCases
 {
-    public class RealizarPagamentoPedidoUseCase : IRealizarPagamentoPedidoUseCase
+    public class SolicitarPagamentoPedidoUseCase : ISolicitarPagamentoPedidoUseCase
     {
         private readonly IRegistroPagamentoRepository repository;
         private readonly ITipoPagamentoUseCaseFactory useCaseFactory;
-        private readonly ILogger<RealizarPagamentoPedidoUseCase> logger;
+        private readonly ILogger<SolicitarPagamentoPedidoUseCase> logger;
 
-        public RealizarPagamentoPedidoUseCase(
+        public SolicitarPagamentoPedidoUseCase(
             IRegistroPagamentoRepository repository,
             ITipoPagamentoUseCaseFactory useCaseFactory,
-            ILogger<RealizarPagamentoPedidoUseCase> logger)
+            ILogger<SolicitarPagamentoPedidoUseCase> logger)
         {
             this.repository = repository;
             this.useCaseFactory = useCaseFactory;

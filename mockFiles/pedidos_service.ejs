@@ -1,0 +1,30 @@
+{
+  "port": 8001,
+  "protocol": "http",
+  "stubs": [
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "PATCH",
+            "path": "/pedido"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200
+          }
+        }
+      ]
+    },
+    {
+      "responses": [
+        {
+          "is": { "statusCode": 404 }
+        }
+      ]
+    }
+  ]
+}

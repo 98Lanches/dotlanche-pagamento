@@ -1,7 +1,8 @@
 using Dotlanche.Pagamento.Application.DependencyInjection;
+using Dotlanche.Pagamento.Application.Exceptions;
 using Dotlanche.Pagamento.Checkout.DependencyInjection;
 using Dotlanche.Pagamento.Data.DependencyInjection;
-using Dotlanche.Pagamento.WebApi.Exceptions;
+using Dotlanche.Pagamento.Integrations.DependencyInjection;
 using System.Text.Json.Serialization;
 
 namespace Dotlanche.Pagamento.WebApi;
@@ -16,6 +17,8 @@ public class Program
 
         builder.Services.AddPostgresqlDatabase(builder.Configuration);
         builder.Services.RunDatabaseMigrations(builder.Configuration);
+
+        builder.Services.AddPedidosServiceIntegration(builder.Configuration);
 
         builder.Services.AddPagamentoUseCases();
 

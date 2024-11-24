@@ -9,14 +9,14 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
     [ApiController]
     public class PagamentosController : ControllerBase
     {
-        private readonly IRealizarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase;
+        private readonly ISolicitarPagamentoPedidoUseCase solicitarPagamentoPedidoUseCase;
         private readonly IGetStatusPagamentoForPedidoUseCase getStatusPagamentoForPedidoUseCase;
 
         public PagamentosController(
-            IRealizarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase,
+            ISolicitarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase,
             IGetStatusPagamentoForPedidoUseCase getStatusPagamentoForPedidoUseCase)
         {
-            this.realizarPagamentoPedidoUseCase = realizarPagamentoPedidoUseCase;
+            this.solicitarPagamentoPedidoUseCase = realizarPagamentoPedidoUseCase;
             this.getStatusPagamentoForPedidoUseCase = getStatusPagamentoForPedidoUseCase;
         }
 
@@ -26,13 +26,13 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
         /// <param name="pagamento">Dados do pagamento</param>
         /// <returns>Resposta com informações sobre o pagamento realizado, dependendo do tipo</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(RegisterPagamentoForPedidoResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(RegisterPagamentoForPedidoResponse), StatusCodes.Status502BadGateway)]
-        public async Task<IActionResult> RegisterPagamentoForPedido([FromBody] RegisterPagamentoForPedidoRequest request)
+        [ProducesResponseType(typeof(RequestPagamentoForPedidoResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RequestPagamentoForPedidoResponse), StatusCodes.Status502BadGateway)]
+        public async Task<IActionResult> RequestPagamentoForPedido([FromBody] RequestPagamentoForPedido request)
         {
             var pagamento = request.ToDomainModel();
 
-            var result = await realizarPagamentoPedidoUseCase.Execute(pagamento);
+            var result = await solicitarPagamentoPedidoUseCase.Execute(pagamento);
             if (result.IsSuccess == false)
             {
                 return new ObjectResult(result.ToResponse())
