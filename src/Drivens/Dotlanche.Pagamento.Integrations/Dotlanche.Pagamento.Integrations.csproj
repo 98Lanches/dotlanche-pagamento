@@ -17,5 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Dotlanche.Pagamento.Application\Dotlanche.Pagamento.Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Dotlanche.Pagamento.UnitTests" />
+  </ItemGroup>
 
 </Project>
