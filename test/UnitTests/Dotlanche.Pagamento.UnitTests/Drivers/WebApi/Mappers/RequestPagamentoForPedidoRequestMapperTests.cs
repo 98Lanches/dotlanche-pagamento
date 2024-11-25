@@ -5,13 +5,13 @@ using FluentAssertions;
 
 namespace Dotlanche.Pagamento.UnitTests.Drivers.WebApi.Mappers
 {
-    public class RegisterPagamentoForPedidoRequestMapperTests
+    public class RequestPagamentoForPedidoRequestMapperTests
     {
         [Test]
         public void ToDomainModel_WhenRequestIsValid_ShouldReturnExpectedMap()
         {
             // Arrange
-            var request = new RegisterPagamentoForPedidoRequest()
+            var request = new RequestPagamentoForPedido()
             {
                 IdPedido = Guid.NewGuid(),
                 Amount = 100,

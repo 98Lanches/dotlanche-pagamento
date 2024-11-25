@@ -3,7 +3,7 @@ using Dotlanche.Pagamento.Domain.ValueObjects;
 
 namespace Dotlanche.Pagamento.Application.UseCases.Interfaces
 {
-    public interface IRealizarPagamentoPedidoUseCase
+    public interface ISolicitarPagamentoPedidoUseCase
     {
         Task<ProviderPagamentoResult> Execute(RegistroPagamento registroPagamento);
     }

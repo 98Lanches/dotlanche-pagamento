@@ -41,6 +41,8 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production
+            - name: Integrations__PedidoService__BaseAddress
+              value: http://dotlanche-pedido-svc
             - name: ConnectionStrings__DefaultConnection
               valueFrom:
                 secretKeyRef: 

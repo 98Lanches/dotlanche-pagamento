@@ -3,12 +3,12 @@ using Dotlanche.Pagamento.WebApi.DTOs;
 
 namespace Dotlanche.Pagamento.WebApi.Mappers
 {
-    public static class RegisterPagamentoForPedidoResponseMapper
+    public static class RequestPagamentoForPedidoResponseMapper
     {
-        public static RegisterPagamentoForPedidoResponse ToResponse(this ProviderPagamentoResult result)
+        public static RequestPagamentoForPedidoResponse ToResponse(this ProviderPagamentoResult result)
         {
 
-            var response = new RegisterPagamentoForPedidoResponse()
+            var response = new RequestPagamentoForPedidoResponse()
             {
                 OperationSuccessful = result.IsSuccess,
                 PedidoId = result.RegistroPagamento.IdPedido,

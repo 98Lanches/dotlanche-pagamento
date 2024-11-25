@@ -1,4 +1,5 @@
-﻿using Dotlanche.Pagamento.Application.UseCases.Interfaces;
+﻿using Dotlanche.Pagamento.Application.Ports;
+using Dotlanche.Pagamento.Application.UseCases.Interfaces;
 using Dotlanche.Pagamento.Domain.Repositories;
 using Dotlanche.Pagamento.Domain.ValueObjects;
 
@@ -7,10 +8,12 @@ namespace Dotlanche.Pagamento.Application.UseCases
     public class ConfirmQrCodePagamentoUseCase : IConfirmQrCodePagamentoUseCase
     {
         private readonly IRegistroPagamentoRepository registroPagamentoRepository;
+        private readonly IPedidosServiceClient pedidosClient;
 
-        public ConfirmQrCodePagamentoUseCase(IRegistroPagamentoRepository registroPagamentoRepository)
+        public ConfirmQrCodePagamentoUseCase(IRegistroPagamentoRepository registroPagamentoRepository, IPedidosServiceClient pedidosClient)
         {
             this.registroPagamentoRepository = registroPagamentoRepository;
+            this.pedidosClient = pedidosClient;
         }
 
         public async Task<Result<string>> Execute(Guid registroPagamentoId)
@@ -21,6 +24,7 @@ namespace Dotlanche.Pagamento.Application.UseCases
 
             registroPgto.ConfirmPayment();
 
+            await pedidosClient.RegisterPagamentoForPedido(registroPgto.IdPedido, registroPgto.Id);
             await registroPagamentoRepository.UpdateAsync(registroPgto);
 
             return new Result<string>(true, "pagamento accepted successfully");

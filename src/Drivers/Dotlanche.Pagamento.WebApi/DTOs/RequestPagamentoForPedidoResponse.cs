@@ -1,6 +1,6 @@
 ﻿namespace Dotlanche.Pagamento.WebApi.DTOs
 {
-    public record RegisterPagamentoForPedidoResponse
+    public record RequestPagamentoForPedidoResponse
     {
         public bool OperationSuccessful { get; set; }
 

@@ -9,7 +9,7 @@ using Moq;
 
 namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
 {
-    public class RealizarPagamentoPedidoUseCaseTests
+    public class SolicitarPagamentoPedidoUseCaseTests
     {
         [Test]
         public async Task Execute_WhenRegistroPagamentoIsValid_ShouldExecuteTipoPagamentoUseCaseAndAddToRepository()
@@ -24,9 +24,9 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
                 .Setup(x => x.GetUseCaseForTipoPagamento(TipoPagamento.QrCode))
                 .Returns(tipoPagamentoUseCaseMock.Object);
 
-            var useCase = new RealizarPagamentoPedidoUseCase(repositoryMock.Object,
+            var useCase = new SolicitarPagamentoPedidoUseCase(repositoryMock.Object,
                                                              factoryMock.Object,
-                                                             new Mock<ILogger<RealizarPagamentoPedidoUseCase>>().Object);
+                                                             new Mock<ILogger<SolicitarPagamentoPedidoUseCase>>().Object);
 
             // Act
             await useCase.Execute(payment);
@@ -61,9 +61,9 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
                 .Setup(x => x.GetUseCaseForTipoPagamento(TipoPagamento.QrCode))
                 .Returns(tipoPagamentoUseCaseMock.Object);
 
-            var useCase = new RealizarPagamentoPedidoUseCase(repositoryMock.Object,
+            var useCase = new SolicitarPagamentoPedidoUseCase(repositoryMock.Object,
                                                              factoryMock.Object,
-                                                             new Mock<ILogger<RealizarPagamentoPedidoUseCase>>().Object);
+                                                             new Mock<ILogger<SolicitarPagamentoPedidoUseCase>>().Object);
 
             // Act
             var result = await useCase.Execute(payment);
@@ -92,9 +92,9 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
                 .Setup(x => x.GetUseCaseForTipoPagamento(TipoPagamento.QrCode))
                 .Returns(tipoPagamentoUseCaseMock.Object);
 
-            var useCase = new RealizarPagamentoPedidoUseCase(repositoryMock.Object,
+            var useCase = new SolicitarPagamentoPedidoUseCase(repositoryMock.Object,
                                                              factoryMock.Object,
-                                                             new Mock<ILogger<RealizarPagamentoPedidoUseCase>>().Object);
+                                                             new Mock<ILogger<SolicitarPagamentoPedidoUseCase>>().Object);
 
             // Act
             var result = await useCase.Execute(payment);
@@ -126,9 +126,9 @@ namespace Dotlanche.Pagamento.UnitTests.Core.Application.UseCases
                 .Setup(x => x.GetUseCaseForTipoPagamento(TipoPagamento.QrCode))
                 .Returns(tipoPagamentoUseCaseMock.Object);
 
-            var useCase = new RealizarPagamentoPedidoUseCase(repositoryMock.Object,
+            var useCase = new SolicitarPagamentoPedidoUseCase(repositoryMock.Object,
                                                              factoryMock.Object,
-                                                             new Mock<ILogger<RealizarPagamentoPedidoUseCase>>().Object);
+                                                             new Mock<ILogger<SolicitarPagamentoPedidoUseCase>>().Object);
 
             // Act
             var result = await useCase.Execute(payment);

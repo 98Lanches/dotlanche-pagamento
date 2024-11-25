@@ -6,7 +6,7 @@ using FluentAssertions;
 
 namespace Dotlanche.Pagamento.UnitTests.Drivers.WebApi.Mappers
 {
-    public class RegisterPagamentoForPedidoResponseMapperTests
+    public class RequestPagamentoForPedidoResponseMapperTests
     {
         [Test]
         public void ToResponse_WhenResultIsValid_ShouldMapExpectedObject()
