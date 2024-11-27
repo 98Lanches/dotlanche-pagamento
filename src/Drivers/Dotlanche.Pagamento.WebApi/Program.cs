@@ -1,8 +1,9 @@
 using Dotlanche.Pagamento.Application.DependencyInjection;
-using Dotlanche.Pagamento.Application.Exceptions;
 using Dotlanche.Pagamento.Checkout.DependencyInjection;
 using Dotlanche.Pagamento.Data.DependencyInjection;
 using Dotlanche.Pagamento.Integrations.DependencyInjection;
+using Dotlanche.Pagamento.WebApi.Extensions;
+using Serilog;
 using System.Text.Json.Serialization;
 
 namespace Dotlanche.Pagamento.WebApi;
@@ -11,40 +12,52 @@ public class Program
 {
     private static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .CreateLogger();
 
-        builder.Services.AddFakeCheckoutProvider();
-
-        builder.Services.AddPostgresqlDatabase(builder.Configuration);
-        builder.Services.RunDatabaseMigrations(builder.Configuration);
-
-        builder.Services.AddPedidosServiceIntegration(builder.Configuration);
-
-        builder.Services.AddPagamentoUseCases();
-
-        builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+        try
         {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+            var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services
-            .AddHealthChecks()
-            .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection") ??
-                throw new MisconfigurationException("ConnectionStrings.DefaultConnection"));
+            builder.Services.ConfigureLogging(builder.Configuration);
+            builder.Services.AddFakeCheckoutProvider();
+            builder.Services.AddPostgresqlDatabase(builder.Configuration);
+            builder.Services.RunDatabaseMigrations(builder.Configuration);
 
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+            builder.Services.AddPedidosServiceIntegration(builder.Configuration);
 
-        var app = builder.Build();
+            builder.Services.AddPagamentoUseCases();
 
-        app.MapHealthChecks("/health");
+            builder.Services.Configure<Microsoft.AspNetCore.Mvc.JsonOptions>(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
-        app.UseSwagger();
-        app.UseSwaggerUI();
+            builder.Services.AddControllers();
+            builder.Services.ConfigureHealthChecks(builder.Configuration);
+            builder.Services.ConfigureSwagger();
 
-        app.MapControllers();
+            var app = builder.Build();
 
-        app.Run();
+            app.UseSerilogRequestLogging();
+
+            app.MapHealthChecks("/health");
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Application terminated unexpectedly");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 }
