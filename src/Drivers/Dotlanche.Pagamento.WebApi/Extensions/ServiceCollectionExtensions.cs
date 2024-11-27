@@ -1,5 +1,8 @@
 ﻿using Dotlanche.Pagamento.Application.Exceptions;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Serilog;
 using System.Reflection;
 
@@ -39,6 +42,34 @@ namespace Dotlanche.Pagamento.WebApi.Extensions
         public static IServiceCollection ConfigureLogging(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSerilog();
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureOpenTelemetry(this IServiceCollection services, IConfiguration configuration)
+        {
+            var tracingOtlpEndpoint = configuration["OpenTelemetry:ProviderEndpointUrl"];
+            var otel = services.AddOpenTelemetry();
+
+            otel.ConfigureResource(resource => resource.AddService(serviceName: "Pagamentos Api"));
+
+            otel.WithMetrics(metrics => metrics
+                .AddAspNetCoreInstrumentation()
+                .AddMeter("Microsoft.AspNetCore.Hosting")
+                .AddMeter("Microsoft.AspNetCore.Server.Kestrel"));
+
+            otel.WithTracing(tracing =>
+            {
+                tracing.AddAspNetCoreInstrumentation();
+                tracing.AddHttpClientInstrumentation();
+                if (tracingOtlpEndpoint != null)
+                {
+                    tracing.AddOtlpExporter(otlpOptions =>
+                     {
+                         otlpOptions.Endpoint = new Uri(tracingOtlpEndpoint);
+                     });
+                }
+            });
 
             return services;
         }

@@ -20,6 +20,20 @@ services:
     - 8001:8001
     command: --configfile /imposters/imposters.ejs --allowInjection
 
+  jaeger:
+    hostname: jaeger
+    image: jaegertracing/all-in-one
+    ports:
+    - "16686:16686"
+    - "4317:4317"
+    - "4318:4318"
+    - "14250:14250"
+    - "14268:14268"
+    - "14269:14269"
+    - "9411:9411"
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: 9411
+
   api:
     build: 
       context: .
@@ -32,6 +46,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=dotlanche-pagamento;Username=pagamentoApiUser;Password=P4a55w0rd
       - Integrations__PedidoService__BaseAddress=http://mock-pedido:8001
+      - OpenTelemetry__ProviderEndpointUrl=http://jaeger:4317/
 
 volumes:
   dotLanchesDb:

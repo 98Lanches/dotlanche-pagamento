@@ -38,6 +38,8 @@ public class Program
             builder.Services.ConfigureHealthChecks(builder.Configuration);
             builder.Services.ConfigureSwagger();
 
+            builder.Services.ConfigureOpenTelemetry(builder.Configuration);
+
             var app = builder.Build();
 
             app.UseSerilogRequestLogging();
