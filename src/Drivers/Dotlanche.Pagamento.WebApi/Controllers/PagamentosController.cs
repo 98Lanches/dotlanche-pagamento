@@ -13,10 +13,10 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
         private readonly IGetStatusPagamentoForPedidoUseCase getStatusPagamentoForPedidoUseCase;
 
         public PagamentosController(
-            ISolicitarPagamentoPedidoUseCase realizarPagamentoPedidoUseCase,
+            ISolicitarPagamentoPedidoUseCase solicitarPagamentoPedidoUseCase,
             IGetStatusPagamentoForPedidoUseCase getStatusPagamentoForPedidoUseCase)
         {
-            this.solicitarPagamentoPedidoUseCase = realizarPagamentoPedidoUseCase;
+            this.solicitarPagamentoPedidoUseCase = solicitarPagamentoPedidoUseCase;
             this.getStatusPagamentoForPedidoUseCase = getStatusPagamentoForPedidoUseCase;
         }
 
@@ -52,11 +52,11 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(GetStatusPagamentoForPedidoResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetStatusPagamentoForPedido([FromQuery] Guid idPedido)
+        public ActionResult<GetStatusPagamentoForPedidoResponse> GetStatusPagamentoForPedido([FromQuery] Guid idPedido)
         {
             var result = getStatusPagamentoForPedidoUseCase.Execute(idPedido);
-            if (!result.IsSuccess)
-                return NotFound();
+            if (!result.IsSuccess || result.Value == null)
+                return NotFound("Pagamento not found");
 
             var response = new GetStatusPagamentoForPedidoResponse()
             {

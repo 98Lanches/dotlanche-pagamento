@@ -25,7 +25,7 @@ Provedores de pagamento disponíveis:
 - GitHub Actions
 
 # Arquitetura do Sistema
-O serviço foi construído utilizando arquitetura hexagonal para organização interna. O banco de dados selecionado foi o Postgresql pela proximidade do time com esta ferramenta.
+O Serviço é uma WebApi com alguns endpoints síncronos. Foi construído utilizando arquitetura hexagonal para organização interna. O banco de dados selecionado foi o Postgresql pela proximidade do time com esta ferramenta.
 
 # Arquitetura Solução
 ![arquiretura_solucao](docs/arquitetura.jpg)
