@@ -22,7 +22,7 @@ namespace Dotlanche.Pagamento.WebApi.Controllers
         [HttpPost("confirm-payment")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ConfirmQrCodePagamento([FromBody] ConfirmQrCodePagamentoRequest request)
+        public async Task<ActionResult> ConfirmQrCodePagamento([FromBody] ConfirmQrCodePagamentoRequest request)
         {
             var result = await confirmQrCodePagamentoUseCase.Execute(request.RegistroPagamentoId);
             if (!result.IsSuccess)
