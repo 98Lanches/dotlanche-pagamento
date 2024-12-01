@@ -2,7 +2,7 @@
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=98Lanches_dotlanche-pagamento&metric=coverage)](https://sonarcloud.io/summary/new_code?id=98Lanches_dotlanche-pagamento)
 
-Microsserviço de pagamentos Dotlanches. Responsável pelo controle de pagamentos dos pedidos e pela integração com provedores de pagamento.
+Microsserviço de pagamentos Dotlanches. Responsável pelo controle de pagamentos dos pedidos e pelas integrações com provedores de pagamento.
 
 # Funcionalidades
 - Criação de registro de pagamento para um pedido.
